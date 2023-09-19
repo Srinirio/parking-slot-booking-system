@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  distace_between_entry_point_1: 1
+  distace_between_entry_point_2: 1
+  distace_between_entry_point_3: 1
+  distace_between_entry_point_4: 1
+
+two:
+  distace_between_entry_point_1: 1
+  distace_between_entry_point_2: 1
+  distace_between_entry_point_3: 1
+  distace_between_entry_point_4: 1
