@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+
+  root 'slot_bookings#new'
+  resources :slot_bookings,only: [:new,:create]
 end

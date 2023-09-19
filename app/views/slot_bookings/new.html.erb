@@ -1,0 +1,30 @@
+<!-- app/views/slot_bookings/new.html.erb -->
+
+<h1>Slot Booking</h1>
+
+<%= form_with(model: @booking, url: slot_bookings_path, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :entrance_id, 'Entrance Number' %>
+    <%= form.select :entrance_id, EntryPoint.all.map { |e| [e.name, e.id] }, prompt: 'Select Entrance' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vehicle_registration_number, 'Vehicle Registration Number' %>
+    <%= form.text_field :vehicle_registration_number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Book Slot' %>
+  </div>
+  <% if flash[:success] %>
+    <div class="alert alert-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+
+  <% if flash[:error] %>
+    <div class="alert alert-danger">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+<% end %>

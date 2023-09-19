@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entrance_id: 1
+  vehicle_registration_number: MyString
+  entry_time: 2023-09-19 20:07:31
+  parking_slot_id: 1
+
+two:
+  entrance_id: 1
+  vehicle_registration_number: MyString
+  entry_time: 2023-09-19 20:07:31
+  parking_slot_id: 1

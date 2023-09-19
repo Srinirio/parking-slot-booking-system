@@ -1,0 +1,2 @@
+class SlotBooking < ApplicationRecord
+end
