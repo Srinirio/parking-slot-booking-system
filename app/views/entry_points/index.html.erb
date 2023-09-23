@@ -1,0 +1,6 @@
+<h1><center>Welcome to parking slot booking</center></h1>
+
+
+<% @entry_point.each do |entry| %>
+  <%= link_to "Entry_#{entry.id}",new_entry_point_slot_booking_path(entry) %><br>
+<% end %>

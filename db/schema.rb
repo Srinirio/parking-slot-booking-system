@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_19_143731) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_23_093008) do
   create_table "entry_points", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -28,12 +28,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_143731) do
   end
 
   create_table "slot_bookings", force: :cascade do |t|
-    t.integer "entrance_id"
-    t.string "vehicle_registration_number"
+    t.integer "entry_point_id"
+    t.string "vehicle_reg_num"
     t.datetime "entry_time"
     t.integer "parking_slot_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "checkout_time"
+    t.date "checkin_date"
   end
 
 end

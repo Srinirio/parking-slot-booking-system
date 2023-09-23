@@ -1,39 +1,39 @@
 class SlotBookingsController < ApplicationController
+  before_action :set_entry
   def new
-    @booking = SlotBooking.new
+    @booking = @entry_point.slot_bookings.new
   end
 
   def create
-    entry_point_id = params[:slot_booking][:entrance_id]
-    vehicle_registration_number = params[:slot_booking][:vehicle_registration_number]
-    # Find the nearest available slot based on entry point and distance calculation
-    nearest_slot = ParkingSlot.where(occupied: false ).order("distance_between_entry_point_#{entry_point_id} ASC").first
+    @booking = @entry_point.slot_bookings.new(slot_params)
+    @booking.checkin_date = Date.today
 
-    if nearest_slot
-      slot_booking = SlotBooking.new(
-        entrance_id: entry_point_id,
-        vehicle_registration_number: vehicle_registration_number,
-        entry_time: Time.now,
-        parking_slot_id: nearest_slot.id
-      )
+    #@booking.entry_time = Date.today
 
-      if slot_booking.save
-        # Mark the slot as occupied
-        nearest_slot.update(occupied: true )
+    @booking.entry_time = Time.current + 6.hours - 30.minutes
 
-        # Redirect to a success page or show a success message
-        flash[:success] = "Slot booked successfully. Your slot number is #{nearest_slot.id}."
-        redirect_to root_path,notice: "Slot booked successfully. Your slot number is #{nearest_slot.id}."
-      else
-        # Handle validation errors
-        flash[:error] = "Validation errors: #{slot_booking.errors.full_messages.join(', ')}"
-        redirect_to root_path
-      end
+    slot = ParkingSlot.where(occupied: false ).order("distance_between_entry_point_#{@booking.entry_point_id} ASC").first
+    if slot
+      @booking.parking_slot_id = slot.id
+      @booking.save
+      slot.update(occupied: true )
+
+      flash[:success] = "Slot booked successfully. Your slot number is #{slot.id}."
+      redirect_to new_entry_point_slot_booking_path(@entry_point)
     else
-      # No available slots
       flash[:error] = "Sorry, no slots are available at the selected entrance."
-      redirect_to root_path
+      redirect_to new_entry_point_slot_booking_path(@entry_point)
     end
+  end
+
+  private
+
+  def set_entry
+    @entry_point = EntryPoint.find(params[:entry_point_id])
+  end
+
+  def slot_params
+    params.require(:slot_booking).permit(:entry_point_id,:vehicle_reg_num,:entry_time,:checkout_time)
   end
 
 end
