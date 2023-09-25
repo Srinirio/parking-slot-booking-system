@@ -8,23 +8,28 @@ class SlotBookingsController < ApplicationController
     @booking = @entry_point.slot_bookings.new(slot_params)
     @booking.checkin_date = Date.today
 
-    #@booking.entry_time = Date.today
-
-    @booking.entry_time = Time.current + 6.hours - 30.minutes
+    @booking.entry_time = Time.now
 
     slot = ParkingSlot.where(occupied: false ).order("distance_between_entry_point_#{@booking.entry_point_id} ASC").first
     if slot
       @booking.parking_slot_id = slot.id
-      @booking.save
-      slot.update(occupied: true )
 
+      if @booking.save
+      slot.update(occupied: true )
+      ChangeOccupationJob.set(wait_until: @booking.checkout_time).perform_later(slot)
       flash[:success] = "Slot booked successfully. Your slot number is #{slot.id}."
       redirect_to new_entry_point_slot_booking_path(@entry_point)
+      else
+        flash[:error] = "You entered invalid input"
+        redirect_to new_entry_point_slot_booking_path(@entry_point)
+      end
     else
       flash[:error] = "Sorry, no slots are available at the selected entrance."
       redirect_to new_entry_point_slot_booking_path(@entry_point)
     end
   end
+
+
 
   private
 
