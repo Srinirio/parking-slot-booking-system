@@ -38,6 +38,11 @@ class SlotBookingsController < ApplicationController
     end
   end
 
+  def vehicle_history
+    @vehicle_registration_number = params[:vehicle_reg_num]
+    @vehicle_history = SlotBooking.where(vehicle_reg_num: @vehicle_registration_number)
+  end
+
   private
 
   def set_entry

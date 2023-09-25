@@ -9,6 +9,7 @@ Rails.application.routes.draw do
      resources :slot_bookings,only: [:new,:create] do
        collection do
          get 'select_date'
+         get 'vehicle_history'
        end
      end
   end

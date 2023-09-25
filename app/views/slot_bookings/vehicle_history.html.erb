@@ -1,0 +1,40 @@
+<!-- app/views/slot_bookings/vehicle_history.html.erb -->
+<div class="container mt-5">
+  <h1 class="display-4">Slot Allocation History for Vehicle</h1>
+
+  <%= form_for(vehicle_history_entry_point_slot_bookings_path, method: :get, class: "mb-4") do %>
+    <div class="form-group">
+      <label for="vehicle_registration_number">Enter Vehicle Registration Number:</label>
+      <%= text_field_tag :vehicle_reg_num, nil, class: "form-control" %>
+    </div>
+    <%= submit_tag "Search", class: "btn btn-primary mt-3" %>
+  <% end %>
+
+  <% if @vehicle_history.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th class="text-center">Slot Number</th>
+          <th class="text-center">Entry Time</th>
+          <th class="text-center">Check Out Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @vehicle_history.each do |booking| %>
+          <tr>
+            <td class="text-center"><%= booking.parking_slot_id %></td>
+            <td class="text-center"><%= booking.entry_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td class="text-center"><%= booking.checkout_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info text-center">
+      No slot allocation history found for the specified vehicle.
+    </div>
+  <% end %>
+</div>
