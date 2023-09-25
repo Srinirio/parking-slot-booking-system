@@ -1,6 +1,16 @@
-<h1><center>Welcome to parking slot booking</center></h1>
+<div class="container text-center mt-5">
+  <h1 class="display-4">Welcome to Parking Slot Booking</h1>
 
-
-<% @entry_point.each do |entry| %>
-  <%= link_to "Entry_#{entry.id}",new_entry_point_slot_booking_path(entry) %><br>
-<% end %>
+  <div class="row mt-4">
+    <% @entry_point.each do |entry| %>
+      <div class="col-md-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Entry Point <%=entry.id %></h5>
+            <%= link_to "Book Slot", new_entry_point_slot_booking_path(entry), class: "btn btn-primary btn-sm" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

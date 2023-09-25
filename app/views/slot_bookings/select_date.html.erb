@@ -1,0 +1,48 @@
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2 class="card-title text-center">Displaying Slot Details</h2>
+        </div>
+        <div class="card-body">
+          <%= form_for(select_date_entry_point_slot_bookings_path, method: :get, class: "mb-4") do %>
+            <div class="form-group">
+              <label for="selected_date">Select Date:</label>
+              <%= date_field_tag :selected_date, nil, class: "form-control" %>
+            </div>
+            <%= submit_tag "Search", class: "btn btn-primary btn-block mt-3" %>
+          <% end %>
+
+          <% if @slot_bookings.any? %>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                  <th class="text-center">Slot Number</th>
+                  <th class="text-center">Vehicle Registration Number</th>
+                  <th class="text-center">Entry Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @slot_bookings.each do |booking| %>
+                  <tr>
+                    <td class="text-center"><%= booking.parking_slot_id %></td>
+                    <td class="text-center"><%= booking.vehicle_reg_num %></td>
+                    <td class="text-center"><%= booking.entry_time.strftime("%H:%M:%S") %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="alert alert-info text-center">
+              No slots used on the selected date
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

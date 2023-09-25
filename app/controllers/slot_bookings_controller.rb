@@ -29,7 +29,14 @@ class SlotBookingsController < ApplicationController
     end
   end
 
-
+  def select_date
+    if params[:selected_date].present?
+      @selected_date = Date.parse(params[:selected_date])
+      @slot_bookings = SlotBooking.where(entry_time: @selected_date.beginning_of_day..@selected_date.end_of_day)
+    else
+      @slot_bookings = []
+    end
+  end
 
   private
 
