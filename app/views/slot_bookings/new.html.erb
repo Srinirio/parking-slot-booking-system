@@ -13,10 +13,18 @@
                 <%= flash[:success] %>
               </div>
             <% end %>
-
             <% if flash[:error] %>
-              <div class="alert alert-danger">
+              <div class="alert alert-success">
                 <%= flash[:error] %>
+              </div>
+            <% end %>
+            <% if flash[:error_1] %>
+              <div class="alert alert-danger">
+                <ul>
+                  <% flash[:error].each do |attribute, message| %>
+                    <li><%= "#{attribute.to_s.humanize} #{message}" %></li>
+                  <% end %>
+                </ul>
               </div>
             <% end %>
 

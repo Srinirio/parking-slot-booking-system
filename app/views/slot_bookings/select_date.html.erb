@@ -7,7 +7,7 @@
           <h2 class="card-title text-center">Displaying Slot Details</h2>
         </div>
         <div class="card-body">
-          <%= form_for(select_date_entry_point_slot_bookings_path, method: :get, class: "mb-4") do %>
+          <%= form_for(slot_bookings_select_date_path, method: :get, class: "mb-4") do %>
             <div class="form-group">
               <label for="selected_date">Select Date:</label>
               <%= date_field_tag :selected_date, nil, class: "form-control" %>

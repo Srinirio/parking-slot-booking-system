@@ -12,8 +12,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-black">
+  <%= render 'header/nav' %>
    <div class="container">
+
     <%= yield %>
    </div>
   </body>

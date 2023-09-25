@@ -1,0 +1,23 @@
+
+<div class="container mt-5">
+  <h1 class="display-4 text-center">All Vehicles' First Entry Times</h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th class="text-center">Vehicle Registration Number</th>
+        <th class="text-center">First Entry Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @first_entry_times.each do |vehicle_registration_number, first_entry_time| %>
+        <tr>
+          <td class="text-center"><%= vehicle_registration_number %></td>
+          <td class="text-center"><%= first_entry_time %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

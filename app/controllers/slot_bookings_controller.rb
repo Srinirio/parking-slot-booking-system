@@ -1,5 +1,5 @@
 class SlotBookingsController < ApplicationController
-  before_action :set_entry
+  before_action :set_entry, only: [:new,:create]
   def new
     @booking = @entry_point.slot_bookings.new
   end
@@ -20,7 +20,7 @@ class SlotBookingsController < ApplicationController
       flash[:success] = "Slot booked successfully. Your slot number is #{slot.id}."
       redirect_to new_entry_point_slot_booking_path(@entry_point)
       else
-        flash[:error] = "You entered invalid input"
+        flash[:error_1] = @booking.errors
         redirect_to new_entry_point_slot_booking_path(@entry_point)
       end
     else
@@ -41,6 +41,10 @@ class SlotBookingsController < ApplicationController
   def vehicle_history
     @vehicle_registration_number = params[:vehicle_reg_num]
     @vehicle_history = SlotBooking.where(vehicle_reg_num: @vehicle_registration_number)
+  end
+
+  def first_entry_times
+    @first_entry_times = SlotBooking.group(:vehicle_reg_num).minimum(:entry_time)
   end
 
   private
