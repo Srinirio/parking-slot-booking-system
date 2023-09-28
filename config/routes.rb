@@ -6,13 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :entry_points, only: [:index] do
-     resources :slot_bookings,only: [:new,:create] do
-       collection do
-         get 'select_date'
-         get 'vehicle_history'
-         get 'first_entry_times'
-       end
-     end
+     resources :slot_bookings,only: [:new,:create]
   end
 
   get 'slot_bookings/select_date'

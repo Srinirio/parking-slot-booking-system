@@ -18,10 +18,11 @@
                 <%= flash[:error] %>
               </div>
             <% end %>
+
             <% if flash[:error_1] %>
               <div class="alert alert-danger">
                 <ul>
-                  <% flash[:error].each do |attribute, message| %>
+                  <% flash[:error_1].each do |attribute, message| %>
                     <li><%= "#{attribute.to_s.humanize} #{message}" %></li>
                   <% end %>
                 </ul>
@@ -40,7 +41,7 @@
 
             <div class="mb-3">
               <%= form.submit "Create Slot Booking", class: "btn btn-primary" %>
-              <%= link_to "Display slot details", select_date_entry_point_slot_bookings_path, class: "btn btn-secondary" %>
+              <%= link_to "Display slot details", slot_bookings_select_date_path, class: "btn btn-secondary" %>
             </div>
 
           <% end %>
