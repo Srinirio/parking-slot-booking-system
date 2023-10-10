@@ -1,19 +1,19 @@
 databases:
-  - name: mysite
-    databaseName: mysite
-    user: mysite
+  - name: slot-booking
+    databaseName: slot-booking
+    user: slot_booking_user
     ipAllowList: []
 
 services:
   - type: web
-    name: mysite
+    name: deploy
     runtime: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: mysite
+          name: slot-booking
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
